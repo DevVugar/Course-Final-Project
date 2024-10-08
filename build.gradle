@@ -37,6 +37,18 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+
+
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.3'
+    implementation group: 'io.swagger', name: 'swagger-annotations', version: '2.0.0-rc2'
+
+    implementation 'io.swagger:swagger-annotations:1.6.11'
+
+    implementation 'org.modelmapper:modelmapper:2.4.2'
+
+    implementation group: 'org.springframework.cloud', name :'spring-cloud-starter-openfeign' , version : '4.1.1'
+
 }
 
 tasks.named('test') {

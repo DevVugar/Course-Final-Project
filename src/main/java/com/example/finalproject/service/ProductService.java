@@ -1,17 +1,26 @@
 package com.example.finalproject.service;
 
+import com.example.finalproject.model.dto.request.ProductRequestDto;
+import com.example.finalproject.model.dto.response.ProductResponseDto;
+import com.example.finalproject.model.dto.response.ReviewResponseDto;
 import com.example.finalproject.model.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    Product add(Product product);
+    ProductResponseDto add(ProductRequestDto requestDto);
 
-    Product getById(Long id);
+    ProductResponseDto getById(Long id);
 
-    Product update(Product product);
+    ProductResponseDto update(ProductRequestDto productRequestDto);
 
     void delete(Long id);
 
-    List<Product> getAll();
+    List<ProductResponseDto> getAll();
+
+    List<ReviewResponseDto> getReviewByProduct(Long id);
+
+    List<ProductResponseDto> getProductByName(String name);
+
+
 }

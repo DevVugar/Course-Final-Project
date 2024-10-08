@@ -1,5 +1,7 @@
 package com.example.finalproject.controller;
 
+import com.example.finalproject.model.dto.request.CategoryRequestDto;
+import com.example.finalproject.model.dto.response.CategoryResponseDto;
 import com.example.finalproject.model.entity.Category;
 import com.example.finalproject.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -15,17 +17,17 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public Category add(@RequestBody Category category) {
+    public CategoryResponseDto add(@RequestBody CategoryRequestDto category) {
         return categoryService.add(category);
     }
 
     @GetMapping("/{id}")
-    public Category getById(@PathVariable Long id) {
+    public CategoryResponseDto getById(@PathVariable Long id) {
         return categoryService.getById(id);
     }
 
     @PutMapping
-    public Category update(@RequestBody Category category) {
+    public CategoryResponseDto update(@RequestBody CategoryRequestDto category) {
         return categoryService.update(category);
     }
 
@@ -35,7 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<Category> getAll() {
+    public List<CategoryResponseDto> getAll() {
         return categoryService.getAll();
     }
 }

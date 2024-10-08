@@ -1,18 +1,20 @@
 package com.example.finalproject.service;
 
+import com.example.finalproject.model.dto.request.CategoryRequestDto;
+import com.example.finalproject.model.dto.response.CategoryResponseDto;
 import com.example.finalproject.model.entity.Category;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    Category add(Category category);
+    CategoryResponseDto add(CategoryRequestDto category);
 
-    Category getById(Long id);
+    CategoryResponseDto getById(Long id);
 
-    Category update(Category category);
+    CategoryResponseDto update(CategoryRequestDto category);
 
     void delete(Long id);
 
-    List<Category> getAll();
+    List<CategoryResponseDto> getAll();
 }

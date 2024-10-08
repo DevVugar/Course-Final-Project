@@ -1,21 +1,27 @@
 package com.example.finalproject.service;
 
-import com.example.finalproject.model.dto.BrandDto;
-import com.example.finalproject.model.entity.Brand;
+import com.example.finalproject.model.dto.request.BrandRequestDto;
+import com.example.finalproject.model.dto.response.BrandResponseDto;
+import com.example.finalproject.model.dto.response.ProductResponseDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface BrandService {
 
-    BrandDto add(Brand brand);
+    List<ProductResponseDto> getProductsByBrandId(Long brandId);
 
-    BrandDto getById(Long id);
+    BrandResponseDto add(BrandRequestDto brandDto);
 
-    BrandDto update(Brand brand);
+    BrandResponseDto getById(Long id);
+
+    BrandResponseDto update(BrandRequestDto brandDto);
 
     void delete(Long id);
 
-    List<BrandDto> getAll();
+    List<BrandResponseDto> getAll();
+
+   // ResponseEntity<?> get(Long id);
 
 
 }
