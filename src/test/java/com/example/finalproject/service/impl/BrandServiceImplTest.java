@@ -53,7 +53,7 @@ class BrandServiceImplTest {
         brandResponseDto.setName("Brand");
 
         brandRequestDto = new BrandRequestDto();
-        brandRequestDto.setId(1L);
+       // brandRequestDto.setId(1L);
         brandRequestDto.setName("Brand");
 
 

@@ -1,13 +1,11 @@
 package com.example.finalproject.service.impl;
 
-import com.example.finalproject.exception.OrderNotFoundException;
+import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.OrderMapping;
-import com.example.finalproject.mapping.UserMapping;
 import com.example.finalproject.model.dto.request.OrderRequestDto;
 import com.example.finalproject.model.dto.response.OrderResponseDto;
 import com.example.finalproject.model.entity.Order;
 import com.example.finalproject.repository.OrderRepository;
-import com.example.finalproject.repository.UserRepository;
 import com.example.finalproject.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -37,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto getById(Long id) {
         return   orderMapping.toResponse(
                  orderRepository.findById(id).orElseThrow(()->
-                        new OrderNotFoundException("Order Not Found")));
+                        new NotFoundException("Order Not Found")));
     }
 
     @Override

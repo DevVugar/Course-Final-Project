@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.w3c.dom.Text;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -21,8 +22,8 @@ public class Review {
     private Long id;
     private Integer rating;
     private String  comment;
-    private Timestamp createdAt;
-    private Timestamp updateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

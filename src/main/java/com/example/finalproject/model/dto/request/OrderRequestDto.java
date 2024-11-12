@@ -19,4 +19,7 @@ public class OrderRequestDto {
     // private Status status;
     private String shippingAddress;
     private String paymentMethod;
+    private UserRequestDto user;
+    private CartRequestDto cart;
+
 }

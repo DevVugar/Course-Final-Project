@@ -1,6 +1,6 @@
 package com.example.finalproject.service.impl;
 
-import com.example.finalproject.exception.ProductNotFoundException;
+import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.ProductMapping;
 import com.example.finalproject.mapping.ReviewMapping;
 import com.example.finalproject.model.dto.request.ProductRequestDto;
@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto add(ProductRequestDto requestDto) {
         Product product = productMapping.toEntity(requestDto);
 
+        product.setCreatedAt(LocalDateTime.now());
         productRepository.save(product);
 
 
@@ -40,17 +42,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto getById(Long id) {
         return productMapping.toResponse(productRepository.findById(id).orElseThrow(() ->
-                new ProductNotFoundException("Product not found")));
+                new NotFoundException("Product not found")));
     }
 
     @Override
-    public ProductResponseDto update(ProductRequestDto productRequestDto) {
-        Product product = productMapping.toEntity(productRequestDto);
-
-        productRepository.save(product);
+    public ProductResponseDto update(Long id, ProductRequestDto productRequestDto) {
+        Product product = productRepository.findById(id).orElseThrow();
 
 
-        return productMapping.toResponse(product);
+        productMapping.toUpdate(productRequestDto, product);
+
+        product.setUpdatedAt(LocalDateTime.now());
+        Product ans = productRepository.save(product);
+
+
+        return productMapping.toResponse(ans);
     }
 
     @Override
@@ -67,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ReviewResponseDto> getReviewByProduct(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product not found"));
         List<ReviewResponseDto> reviewResponseDtos = reviewRepository.findByProduct(product).stream().map(review ->
                 reviewMapping.toResponse(review)).collect(Collectors.toList());
 

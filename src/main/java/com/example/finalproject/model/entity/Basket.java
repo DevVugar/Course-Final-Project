@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -23,26 +24,22 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-
-
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 //    @ManyToOne
 //    @JoinColumn(name = "order_id", referencedColumnName = "id")
-//    private Order orderByOrderId;
+//    private Order order;
 
     @ManyToMany
-    @JoinTable(name = "basket_product",joinColumns = @JoinColumn(name = "basket_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    @JoinTable(name = "basket_product",
+            joinColumns = @JoinColumn(name = "basket_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id") )
     private List<Product> products;
-
-
 
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;  // Adding relation to User
+    private User user;
 
 }

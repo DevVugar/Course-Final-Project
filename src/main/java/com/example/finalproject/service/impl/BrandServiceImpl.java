@@ -1,6 +1,6 @@
 package com.example.finalproject.service.impl;
 
-import com.example.finalproject.exception.BrandNotFoundException;
+import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.BrandMapping;
 import com.example.finalproject.model.dto.request.BrandRequestDto;
 import com.example.finalproject.model.dto.response.BrandResponseDto;
@@ -10,7 +10,6 @@ import com.example.finalproject.model.entity.Product;
 import com.example.finalproject.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.finalproject.repository.BrandRepository;
 import com.example.finalproject.service.BrandService;
@@ -31,7 +30,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public List<ProductResponseDto> getProductsByBrandId(Long brandId) {
         Brand brand = brandRepository.findById(brandId)
-                .orElseThrow(() -> new BrandNotFoundException("Brand not found with id: " + brandId));
+                .orElseThrow(() -> new NotFoundException("Brand not found with id: " + brandId));
 
         Collection<Product> products=productRepository.findByBrand(brand);
 
@@ -54,7 +53,7 @@ public class BrandServiceImpl implements BrandService {
     public BrandResponseDto getById(Long id) {
 
         return modelMapper.map(brandRepository.findById(id).
-                orElseThrow(() -> new BrandNotFoundException("Brand not found")), BrandResponseDto.class);
+                orElseThrow(() -> new NotFoundException("Brand not found")), BrandResponseDto.class);
     }
 
     @Override

@@ -20,10 +20,6 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ReviewResponseDto> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(reviewService.getById(id));
-    }
 
     @PostMapping
     public ResponseEntity<ReviewResponseDto> add(@RequestBody ReviewRequestDto reviewRequestDto) {
@@ -32,9 +28,9 @@ public class ReviewController {
         //return ResponseEntity.created(reviewService.add(reviewRequestDto));
     }
 
-    @PutMapping
-    public ResponseEntity<ReviewResponseDto> update(@RequestBody ReviewRequestDto reviewRequestDto) {
-        return new ResponseEntity<>(reviewService.add(reviewRequestDto), HttpStatus.ACCEPTED);
+    @PutMapping("/{id}")
+    public ResponseEntity<ReviewResponseDto> update(@PathVariable Long id,@RequestBody ReviewRequestDto reviewRequestDto) {
+        return new ResponseEntity<>(reviewService.update(id,reviewRequestDto), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping

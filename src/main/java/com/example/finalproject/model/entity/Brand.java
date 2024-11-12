@@ -8,6 +8,7 @@
     import lombok.Setter;
 
     import java.sql.Timestamp;
+    import java.time.LocalDateTime;
     import java.util.Collection;
     import java.util.List;
 
@@ -31,10 +32,10 @@
         private String description;
 
         @Column(name = "created_at")
-        private Timestamp createdAt;
+        private LocalDateTime createdAt;
 
         @Column(name = "updated_at")
-        private Timestamp updatedAt;
+        private LocalDateTime updatedAt;
 
 //
 //        @JsonIgnore

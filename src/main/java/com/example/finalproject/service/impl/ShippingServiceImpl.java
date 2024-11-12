@@ -1,6 +1,6 @@
 package com.example.finalproject.service.impl;
 
-import com.example.finalproject.exception.ShippingNotFoundException;
+import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.ShippingMapping;
 import com.example.finalproject.model.dto.request.ShippingRequestDto;
 import com.example.finalproject.model.dto.response.ShippingResponseDto;
@@ -31,7 +31,7 @@ public class ShippingServiceImpl implements ShippingService {
     @Override
     public ShippingResponseDto getById(Long id) {
         return shippingMapping.toResponse(shippingRepository.findById(id).orElseThrow(()->
-                new ShippingNotFoundException("Shipping not found")));
+                new NotFoundException("Shipping not found")));
     }
 
     @Override

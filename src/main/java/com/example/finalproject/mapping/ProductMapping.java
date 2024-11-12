@@ -10,15 +10,20 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.lang.annotation.Target;
+import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {BrandMapping.class, CategoryMapping.class}, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(componentModel = "spring", uses = {BrandMapping.class, CategoryMapping.class,
+        ReviewMapping.class, WishListMapping.class, BasketMapping.class},
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ProductMapping {
 
     ProductResponseDto toResponse(Product product);
+    List<ProductResponseDto> toResponse(List<Product> products);
 
     Product toEntity(ProductRequestDto productDto);
 
-    void toUpdate(ProductDto productDto, @MappingTarget Product product);
+
+    void toUpdate(ProductRequestDto productDto, @MappingTarget Product product);
 
 
 }

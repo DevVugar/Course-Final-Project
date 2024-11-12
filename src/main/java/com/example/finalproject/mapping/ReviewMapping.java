@@ -10,8 +10,11 @@ import com.example.finalproject.model.entity.Review;
 import com.example.finalproject.model.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {ProductMapping.class, UserMapping.class},
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+
 public interface ReviewMapping {
 
     Review toEntity(ReviewRequestDto reviewRequestDto);

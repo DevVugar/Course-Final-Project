@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "orders")
 public class Order {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,15 +25,16 @@ public class Order {
     // private Status status;
     private String shippingAddress;
     private String paymentMethod;
-    private Timestamp createdAt;
-    private Timestamp updateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-
     @OneToOne
     @JoinColumn(name = "basket_id", referencedColumnName = "id")
     private Basket basket;
+
+
 }

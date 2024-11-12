@@ -1,6 +1,6 @@
 package com.example.finalproject.service.impl;
 
-import com.example.finalproject.exception.PaymentNotFoundException;
+import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.PaymentMapping;
 import com.example.finalproject.model.dto.request.PaymentRequestDto;
 import com.example.finalproject.model.dto.response.PaymentResponseDto;
@@ -29,7 +29,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentResponseDto getById(Long id) {
         return paymentMapping.toResponse(paymentRepository.findById(id).orElseThrow(()->
-                new PaymentNotFoundException("Payment not found")));
+                new NotFoundException("Payment not found")));
     }
 
     @Override

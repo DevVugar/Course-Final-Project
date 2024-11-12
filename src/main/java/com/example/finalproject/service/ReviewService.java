@@ -8,11 +8,10 @@ import java.util.List;
 
 public interface ReviewService {
 
-    ReviewResponseDto getById(Long id);
 
     ReviewResponseDto add(ReviewRequestDto reviewRequestDto);
 
-    ReviewResponseDto update(ReviewRequestDto reviewRequestDto);
+    ReviewResponseDto update(Long id,ReviewRequestDto reviewRequestDto);
 
     void delete(Long id);
 

@@ -4,17 +4,9 @@ import com.example.finalproject.enums.Role;
 import lombok.*;
 
 @Builder
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class UserRequestDto {
-    private Long id;
     private String username;
-    private String email;
-    private String passwordHash;
     private String fullName;
-    private String address;
-    private String phoneNumber;
-    private Role role;
+    private String password;
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -26,10 +27,15 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    private Timestamp createdAt;
-    private Timestamp updateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id",referencedColumnName = "id")
+    private Cart cart;
+
 }
