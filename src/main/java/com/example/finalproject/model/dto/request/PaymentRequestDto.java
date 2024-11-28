@@ -5,12 +5,15 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 public class PaymentRequestDto {
-    private Long id;
-    private Timestamp paymentDate;
-    private BigDecimal amount;
+
+    private Long userId;
     private String paymentMethod;
-    private PaymentStatus paymentStatus;
+    private String shippingAddress;
+
+    private Long cardId;
+
 }

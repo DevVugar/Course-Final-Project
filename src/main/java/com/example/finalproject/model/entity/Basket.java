@@ -1,7 +1,6 @@
 package com.example.finalproject.model.entity;
 
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,19 +26,19 @@ public class Basket {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-//    @ManyToOne
-//    @JoinColumn(name = "order_id", referencedColumnName = "id")
-//    private Order order;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name = "basket_product",
             joinColumns = @JoinColumn(name = "basket_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id") )
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+//    @OneToOne(mappedBy = "basket")
+//    private User user;
 
+
+    //    @ManyToOne
+//    @JoinColumn(name = "order_id", referencedColumnName = "id")
+//    private Order order;
 }

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class GEHandler {
 
-    @ExceptionHandler({NotFoundException.class
-    })
+    @ExceptionHandler({NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionDTO handleNotFound(NotFoundException ex) {
         log.error("Action.error.log -> NOT_FOUND: {}", ex.getMessage());
@@ -21,11 +20,19 @@ public class GEHandler {
     }
 
 
+
     @ExceptionHandler({AlreadyExistsException.class})
     public ExceptionDTO handleStudentAlreadyExistsException(AlreadyExistsException ex) {
         log.error("Action.error.log -> Already Taken: {}", ex.getMessage());
         return ExceptionDTO.builder().message(ex.getMessage()).code(HttpStatus.NOT_FOUND.value()).build();
     }
+
+    @ExceptionHandler({PaymentException.class})
+    public ExceptionDTO handlePaymentProcess(AlreadyExistsException ex) {
+        log.error("Payment processing error -> {}", ex.getMessage());
+        return ExceptionDTO.builder().message(ex.getMessage()).code(HttpStatus.NOT_FOUND.value()).build();
+    }
+
 
 
 }

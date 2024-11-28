@@ -36,19 +36,20 @@ public class User implements UserDetails {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "basket_id", referencedColumnName = "id")
     private Basket basket;
+
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private WishList wishList;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private List<Order> orders;
+    @JoinColumn(name = "payment_id", referencedColumnName = "id")
+    private List<Payment> payments;
 
-
-    @OneToMany(mappedBy = "user",cascade =CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id",referencedColumnName = "id")
     private Set<Cart> carts;
 
     public User(String username) {

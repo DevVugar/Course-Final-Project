@@ -8,9 +8,13 @@ import com.example.finalproject.model.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CartMapping {
     Cart toEntity(CartRequestDto requestDto);
+    List<Cart> toEntity(List<CartRequestDto> requestDto);
+
     CartResponseDto toResponse(Cart cart);
     void toUpdate(CartRequestDto requestDto, @MappingTarget Cart cart);
 

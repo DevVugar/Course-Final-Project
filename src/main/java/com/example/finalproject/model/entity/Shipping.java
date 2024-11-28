@@ -28,8 +28,6 @@ public class Shipping {
     private ShippingStatus status;
 
 
-
-
     @Column(name = "created_at")
     private Timestamp createdAt;
 

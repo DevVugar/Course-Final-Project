@@ -2,7 +2,7 @@ package com.example.finalproject.service.impl;
 
 import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.CartMapping;
-import com.example.finalproject.mapping.OrderMapping;
+import com.example.finalproject.mapping.PaymentMapping;
 import com.example.finalproject.mapping.ProductMapping;
 import com.example.finalproject.mapping.UserMapping;
 import com.example.finalproject.model.dto.UserDto;
@@ -25,17 +25,16 @@ public class UserServiceImple implements UserService {
 
 
     private final UserRepository userRepository;
-    private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final BasketRepository basketRepository;
     private final WishListRepository wishListRepository;
     private final ModelMapper modelMapper;
     private final UserMapping userMapping;
-    private final OrderMapping orderMapping;
     private final ProductMapping productMapping;
     private final CartRepository cartRepository;
     private final CartMapping cartMapping;
-
+    private final PaymentRepository paymentRepository;
+    private final PaymentMapping paymentMapping;
 
     @Override
     public UserResponseDto getById(Long id) {
@@ -67,30 +66,32 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
-    public List<OrderResponseDto> getOrders(Long id) {
+    public List<PaymentResponseDto> getPayments(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
-        List<OrderResponseDto> orders = orderRepository.findByUser(user).stream().map(order ->
-                orderMapping.toResponse(order)).collect(Collectors.toList());
 
-
-        return null;
+        return paymentRepository.findByUser(user).stream().map(payment ->
+                paymentMapping.toResponse(payment)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductResponseDto> getProductByBasket(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("user not found"));
-        Basket basket = basketRepository.findByUser(user);
+        Basket basket = user.getBasket();
+
+        if (basket == null) {
+            throw new NotFoundException("Basket is empty");
+        }
+
         List<Product> products = basket.getProducts();
         return products.stream().map(product -> productMapping.toResponse(product)).collect(Collectors.toList());
     }
 
     @Override
-    public Set<CartResponseDto> getCarts(Long id) {
+    public Set<CartResponseDto> getCart(Long id) {
         User u = userRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("User not found"));
 
-        Set<CartResponseDto> carts = u.getCarts().stream().map(cart ->
-                cartMapping.toResponse(cart)).collect(Collectors.toSet());
+        Set<CartResponseDto> carts = u.getCarts().stream().map(cart -> cartMapping.toResponse(cart)).collect(Collectors.toSet());
 
 
         return carts;

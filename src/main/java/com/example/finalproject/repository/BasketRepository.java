@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BasketRepository extends JpaRepository<Basket,Long> {
-    Basket findByUser(User user);
+
 }

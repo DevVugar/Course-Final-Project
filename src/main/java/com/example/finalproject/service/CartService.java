@@ -12,11 +12,10 @@ import java.util.List;
 public interface CartService {
 
 
-    CartResponseDto add(CartRequestDto requestDto);
+    CartResponseDto add(Long id,CartRequestDto requestDto);
 
     CartResponseDto getById(Long id);
 
-    CartResponseDto update(CartRequestDto brandDto);
 
     void delete(Long id);
 

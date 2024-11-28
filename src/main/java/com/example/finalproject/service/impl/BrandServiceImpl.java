@@ -28,6 +28,7 @@ public class BrandServiceImpl implements BrandService {
     private final ProductRepository productRepository;
 
     @Override
+
     public List<ProductResponseDto> getProductsByBrandId(Long brandId) {
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new NotFoundException("Brand not found with id: " + brandId));

@@ -25,11 +25,12 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers(permitAllUrls).permitAll()
-                                .requestMatchers(adminUrls).hasAnyAuthority("ROLE_ADMIN")
-                                .requestMatchers(clientUrls).hasAnyAuthority("ROLE_USER")
-                                .requestMatchers(anyAuthUrls).authenticated()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
+//                                .requestMatchers(permitAllUrls).permitAll()
+//                                .requestMatchers(adminUrls).hasAnyAuthority("ROLE_ADMIN")
+//                                .requestMatchers(clientUrls).hasAnyAuthority("ROLE_USER")
+//                                .requestMatchers(anyAuthUrls).authenticated()
+//                                .anyRequest().authenticated()
                 ).exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint((request, response, authException) ->
                                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)
@@ -66,6 +67,7 @@ public class SecurityConfig {
             "/controller/user"
             ,"/user/**"
             ,"/user"
+            ,"/basket/**"
 
     };
 

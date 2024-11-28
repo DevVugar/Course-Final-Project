@@ -1,12 +1,8 @@
 package com.example.finalproject.mapping;
 
-import com.example.finalproject.model.dto.CategoryDto;
 import com.example.finalproject.model.dto.request.CategoryRequestDto;
-import com.example.finalproject.model.dto.request.OrderRequestDto;
 import com.example.finalproject.model.dto.response.CategoryResponseDto;
-import com.example.finalproject.model.dto.response.OrderResponseDto;
 import com.example.finalproject.model.entity.Category;
-import com.example.finalproject.model.entity.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;

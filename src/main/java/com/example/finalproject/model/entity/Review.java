@@ -26,7 +26,7 @@ public class Review {
     private LocalDateTime updateAt;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 

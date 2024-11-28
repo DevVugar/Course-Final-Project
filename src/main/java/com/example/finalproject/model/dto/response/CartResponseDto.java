@@ -6,5 +6,6 @@ import lombok.Data;
 @Data
 public class CartResponseDto {
     private Long id;
-    private UserRequestDto userRequestDto;
+    private String bankAccount;
+
 }

@@ -1,19 +1,15 @@
 package com.example.finalproject.controller;
 
 import com.example.finalproject.model.dto.UserDto;
-import com.example.finalproject.model.dto.request.OrderRequestDto;
-import com.example.finalproject.model.dto.request.UserRequestDto;
 import com.example.finalproject.model.dto.response.CartResponseDto;
-import com.example.finalproject.model.dto.response.OrderResponseDto;
+import com.example.finalproject.model.dto.response.PaymentResponseDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
 import com.example.finalproject.model.dto.response.UserResponseDto;
-import com.example.finalproject.service.OrderService;
 import com.example.finalproject.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,9 +51,9 @@ public class UserController {
     }
 
 
-    @GetMapping("/{id}/orders")
-    public ResponseEntity<List<OrderResponseDto>> getOrders(@PathVariable Long id){
-        return ResponseEntity.ok(userService.getOrders(id));
+    @GetMapping("/{id}/payments")
+    public ResponseEntity<List<PaymentResponseDto>> getOrders(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getPayments(id));
     }
 
 
@@ -68,13 +64,13 @@ public class UserController {
 
     @GetMapping("/{id}/carts")
     public ResponseEntity<Set<CartResponseDto>> getCarts(@PathVariable Long id){
-        return ResponseEntity.ok(userService.getCarts(id));
+        return ResponseEntity.ok(userService.getCart(id));
     }
 
 
 
     @GetMapping("/{id}/wishList")
-    public ResponseEntity<List<ProductResponseDto>> getWisListByUser(@PathVariable Long id){
+    public ResponseEntity<List<ProductResponseDto>> getWisList(@PathVariable Long id){
         return ResponseEntity.ok(userService.getWisListProduct(id));
     }
 }

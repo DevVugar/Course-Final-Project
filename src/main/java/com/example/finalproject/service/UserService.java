@@ -22,11 +22,11 @@ public interface UserService {
 
     List<UserResponseDto> getAll();
 
-    List<OrderResponseDto> getOrders(Long id);
+    List<PaymentResponseDto> getPayments(Long id);
 
     List<ProductResponseDto> getProductByBasket(Long id);
 
-    Set<CartResponseDto> getCarts(Long id);
+    Set<CartResponseDto> getCart(Long id);
 
 
     List<ProductResponseDto> getWisListProduct(Long id);
