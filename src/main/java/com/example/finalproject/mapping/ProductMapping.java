@@ -2,6 +2,7 @@ package com.example.finalproject.mapping;
 
 import com.example.finalproject.model.dto.ProductDto;
 import com.example.finalproject.model.dto.request.ProductRequestDto;
+import com.example.finalproject.model.dto.response.ProductResponseAdminDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
 import com.example.finalproject.model.entity.Product;
 import org.mapstruct.Mapper;
@@ -18,6 +19,8 @@ import java.util.List;
 public interface ProductMapping {
 
     ProductResponseDto toResponse(Product product);
+    ProductResponseAdminDto toResponsee(Product product);
+
     List<ProductResponseDto> toResponse(List<Product> products);
 
     Product toEntity(ProductRequestDto productDto);

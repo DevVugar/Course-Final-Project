@@ -1,10 +1,7 @@
 package com.example.finalproject.controller;
 
 import com.example.finalproject.model.dto.UserDto;
-import com.example.finalproject.model.dto.response.CartResponseDto;
-import com.example.finalproject.model.dto.response.PaymentResponseDto;
-import com.example.finalproject.model.dto.response.ProductResponseDto;
-import com.example.finalproject.model.dto.response.UserResponseDto;
+import com.example.finalproject.model.dto.response.*;
 import com.example.finalproject.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +49,7 @@ public class UserController {
 
 
     @GetMapping("/{id}/payments")
-    public ResponseEntity<List<PaymentResponseDto>> getOrders(@PathVariable Long id){
+    public ResponseEntity<List<PaymentResponseDto>> getPayments(@PathVariable Long id){
         return ResponseEntity.ok(userService.getPayments(id));
     }
 

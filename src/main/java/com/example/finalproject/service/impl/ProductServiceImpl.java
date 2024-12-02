@@ -4,6 +4,7 @@ import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.ProductMapping;
 import com.example.finalproject.mapping.ReviewMapping;
 import com.example.finalproject.model.dto.request.ProductRequestDto;
+import com.example.finalproject.model.dto.response.ProductResponseAdminDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
 import com.example.finalproject.model.dto.response.ReviewResponseDto;
 import com.example.finalproject.model.entity.Product;
@@ -12,6 +13,8 @@ import com.example.finalproject.repository.ReviewRepository;
 import com.example.finalproject.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springdoc.core.utils.SpringDocUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -84,5 +87,23 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponseDto> getProductByName(String name) {
         return productRepository.findByName(name).stream().map(product ->
                 productMapping.toResponse(product)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductResponseAdminDto> getLowStockProducts() {
+        List<ProductResponseAdminDto> products =productRepository.findAll().stream().filter(product -> product.isLowStock())
+                .map(product -> productMapping.toResponsee(product)).collect(Collectors.toList());
+
+
+        return products;
+    }
+
+    @Override
+    public List<ProductResponseAdminDto> getCloseToExpirationProducts() {
+        List<ProductResponseAdminDto> products =productRepository.findAll().stream().filter(product -> product.isCloseToExpiration())
+                .map(product -> productMapping.toResponsee(product)).collect(Collectors.toList());
+
+
+        return products;
     }
 }

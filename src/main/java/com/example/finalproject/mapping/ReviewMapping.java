@@ -2,6 +2,7 @@ package com.example.finalproject.mapping;
 
 
 import com.example.finalproject.model.dto.ProductDto;
+import com.example.finalproject.model.dto.request.ProductRequestDto;
 import com.example.finalproject.model.dto.request.ReviewRequestDto;
 import com.example.finalproject.model.dto.request.UserRequestDto;
 import com.example.finalproject.model.dto.response.ReviewResponseDto;
@@ -18,6 +19,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface ReviewMapping {
 
     Review toEntity(ReviewRequestDto reviewRequestDto);
+
 
     ReviewResponseDto toResponse(Review review);
 

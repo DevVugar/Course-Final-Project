@@ -35,9 +35,9 @@ public class WishListController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<ProductResponseDto>> getAll(@PathVariable Long id) {
-        return ResponseEntity.ok(wishListService.getAll(id));
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<ProductResponseDto>> getAll(@PathVariable Long userId) {
+        return ResponseEntity.ok(wishListService.getAll(userId));
     }
 
 

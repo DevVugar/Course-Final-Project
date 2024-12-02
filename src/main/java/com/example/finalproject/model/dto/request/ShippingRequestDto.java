@@ -12,9 +12,7 @@ public class ShippingRequestDto {
     private Long id;
     private String shippingAddress;
     private String shippingMethod;
-    private BigDecimal shippingCost;
     private String trackingNumber;
+    private Long paymentId;
 
-    @Enumerated(EnumType.STRING)
-    private ShippingStatus status;
 }

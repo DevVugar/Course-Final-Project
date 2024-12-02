@@ -5,6 +5,7 @@ import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.exception.PaymentException;
 import com.example.finalproject.mapping.CartMapping;
 import com.example.finalproject.mapping.PaymentMapping;
+import com.example.finalproject.mapping.ProductMapping;
 import com.example.finalproject.model.dto.request.CartRequestDto;
 import com.example.finalproject.model.dto.request.PaymentRequestDto;
 import com.example.finalproject.model.dto.request.PaymentRequestWithCardDto;
@@ -33,6 +34,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final ProductRepository productRepository;
     private final BasketRepository basketRepository;
     private final UserRepository userRepository;
+    private final ProductMapping productMapping;
 
     @Override
     @Transactional
@@ -51,19 +53,30 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = paymentMapping.toEntity(requestDto);
 
         double sum = 0;
-            for (int i = 0; i < basket.getProducts().size(); i++) {
-                sum += basket.getProducts().get(i).getPrice();
+        for (int i = 0; i < basket.getProducts().size(); i++) {
+            Product product = basket.getProducts().get(i);
+            if (0 < product.getDiscount() && product.getDiscount() < 100) {
+                sum += product.getPrice() * (100 - product.getDiscount()) / 100;
+            } else {
+                sum += product.getPrice();
             }
-            payment.setTotalAmount(sum);
 
-            payment.setBasket(user.getBasket());
+        }
 
-            payment.setUser(user);
+        sum += requestDto.getShippingAmount();
 
-            payment.setPaymentDate(LocalDateTime.now());
+        payment.setTotalAmount(sum);
+
+        payment.setProducts(productMapping.toResponse(basket.getProducts()));
+
+        payment.setBasket(user.getBasket());
+
+        payment.setUser(user);
+
+        payment.setPaymentDate(LocalDateTime.now());
 
 
-            payment.setPaymentStatus(PaymentStatus.pending);
+        payment.setPaymentStatus(PaymentStatus.pending);
 
 
         try {
@@ -96,6 +109,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
 
+
+
     @Override
     @Transactional
     public PaymentResponseDto pay(PaymentRequestDto requestDto) {
@@ -106,7 +121,7 @@ public class PaymentServiceImpl implements PaymentService {
         Cart cart = cartRepository.findById(requestDto.getCardId())
                 .orElseThrow(() -> new NotFoundException("Cart not found"));
 
-        // Ensure Cart is managed by Hibernate
+
         if (!cartRepository.existsById(cart.getId())) {
             cart = cartRepository.save(cart);
         }
@@ -118,15 +133,27 @@ public class PaymentServiceImpl implements PaymentService {
 
         Payment payment = paymentMapping.toEntity(requestDto);
         payment.setBasket(basket);
+        payment.setProducts(productMapping.toResponse(basket.getProducts()));
         payment.setCart(cart);
         payment.setUser(user);
         payment.setPaymentDate(LocalDateTime.now());
-        payment.setPaymentStatus(PaymentStatus.pending);
 
-        double sum = basket.getProducts().stream()
-                .mapToDouble(Product::getPrice)
-                .sum();
+
+        double sum = 0;
+        for (int i = 0; i < basket.getProducts().size(); i++) {
+            Product product = basket.getProducts().get(i);
+            if (0 < product.getDiscount() && product.getDiscount() < 100) {
+                sum += product.getPrice() * (100 - product.getDiscount()) / 100;
+            } else {
+                sum += product.getPrice();
+            }
+
+        }
+
+        sum += requestDto.getShippingAmount();
         payment.setTotalAmount(sum);
+
+        payment.setPaymentStatus(PaymentStatus.pending);
 
         try {
             payment = paymentRepository.save(payment);
@@ -144,12 +171,13 @@ public class PaymentServiceImpl implements PaymentService {
             throw new PaymentException("Payment failed: " + ex.getMessage());
         }
 
+
         return paymentMapping.toResponse(payment);
     }
 
 
 
-    //    @Transactional
+
     private boolean processPayment(Payment payment) {
         List<Product> products = payment.getBasket().getProducts();
 

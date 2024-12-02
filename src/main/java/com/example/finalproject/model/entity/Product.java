@@ -33,11 +33,16 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
+    private Double discount;
+
     @Column(name = "stock_quantity")
     private Integer stockQuantity;
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @Column(name = "expiration_date")
+    private LocalDate expirationDate;
 
     //pattern to find
     @Column(name = "created_at")
@@ -45,6 +50,10 @@ public class Product {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    private boolean lowStock = false;
+    private boolean isCloseToExpiration = false;
+
 
 
 

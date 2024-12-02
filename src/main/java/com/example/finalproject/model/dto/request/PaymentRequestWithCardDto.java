@@ -6,6 +6,7 @@ import lombok.Data;
 public class PaymentRequestWithCardDto {
     private Long userId;
     private String paymentMethod;
-    private String shippingAddress;
+  //  private String shippingAddress;
+    private Double shippingAmount;
     private CartRequestDto cart;
 }

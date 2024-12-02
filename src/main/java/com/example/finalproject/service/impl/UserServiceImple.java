@@ -5,6 +5,7 @@ import com.example.finalproject.mapping.CartMapping;
 import com.example.finalproject.mapping.PaymentMapping;
 import com.example.finalproject.mapping.ProductMapping;
 import com.example.finalproject.mapping.UserMapping;
+import com.example.finalproject.model.dto.ProductDto;
 import com.example.finalproject.model.dto.UserDto;
 import com.example.finalproject.model.dto.response.*;
 import com.example.finalproject.model.entity.*;
@@ -69,9 +70,21 @@ public class UserServiceImple implements UserService {
     public List<PaymentResponseDto> getPayments(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
 
-        return paymentRepository.findByUser(user).stream().map(payment ->
-                paymentMapping.toResponse(payment)).collect(Collectors.toList());
+
+
+        return paymentRepository.findByUser(user).stream().map(payment ->{
+                PaymentResponseDto responseDto=paymentMapping.toResponse(payment);
+                responseDto.setProducts(payment.getProducts());
+
+//                responseDto.setProducts(payment.getProducts().stream().map(product ->
+//                        productMapping.toResponse(product)).collect(Collectors.toList()));
+                return responseDto;
+                }
+                ).collect(Collectors.toList());
     }
+
+
+
 
     @Override
     public List<ProductResponseDto> getProductByBasket(Long id) {

@@ -1,8 +1,10 @@
 package com.example.finalproject.controller;
 
 import com.example.finalproject.model.dto.request.ProductRequestDto;
+import com.example.finalproject.model.dto.response.ProductResponseAdminDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
 import com.example.finalproject.model.dto.response.ReviewResponseDto;
+import com.example.finalproject.model.entity.Product;
 import com.example.finalproject.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,15 @@ public class ProductController {
         return ResponseEntity.ok(productService.getReviewByProduct(id));
     }
 
+    @GetMapping("/low-stock")
+    public ResponseEntity<List<ProductResponseAdminDto>> getLowStockProducts() {
+        return ResponseEntity.ok(productService.getLowStockProducts());
+    }
+
+    @GetMapping("/close-to-expiration")
+    public ResponseEntity<List<ProductResponseAdminDto>> getCloseToExpirationProducts() {
+        return ResponseEntity.ok(productService.getCloseToExpirationProducts());
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponseDto> update(@PathVariable Long id, @RequestBody ProductRequestDto requestDto) {

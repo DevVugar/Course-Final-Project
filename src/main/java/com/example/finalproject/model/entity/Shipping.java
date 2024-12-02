@@ -21,7 +21,6 @@ public class Shipping {
     private Long id;
     private String shippingAddress;
     private String shippingMethod;
-    private BigDecimal shippingCost;
     private String trackingNumber;
 
     @Enumerated(EnumType.STRING)
@@ -33,4 +32,10 @@ public class Shipping {
 
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id", referencedColumnName = "id")
+    private Payment payment;
+
 }

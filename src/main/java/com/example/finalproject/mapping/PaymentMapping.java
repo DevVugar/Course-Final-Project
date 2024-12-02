@@ -13,6 +13,7 @@ import org.mapstruct.MappingTarget;
 public interface PaymentMapping {
 
     Payment toEntity(PaymentRequestDto requestDto);
+
     Payment toEntity(PaymentRequestWithCardDto paymentRequestWithCardDto);
     PaymentResponseDto toResponse(Payment payment);
 

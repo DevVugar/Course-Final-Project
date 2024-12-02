@@ -66,6 +66,10 @@ public class WishListServiceImpl implements WishListService {
     public List<ProductResponseDto> getAll(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
 
+        if(user.getWishList()==null || user.getWishList().getProducts().size()==0 ){
+            throw new NotFoundException("You dont have product in wishList");
+        }
+
         WishList wishList = wishListRepository.findByUser(user);
 
         return productMapping.toResponse(wishList.getProducts());
