@@ -23,30 +23,25 @@ public class ShippingController {
     private final ShippingService shippingService;
 
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<ShippingResponseDto> add(@RequestBody ShippingRequestDto requestDto) {
         return ResponseEntity.ok(shippingService.add(requestDto));
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ShippingResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(shippingService.getById(id));
     }
 
 
-    @PutMapping
-    public ResponseEntity<ShippingResponseDto> update(@RequestBody ShippingRequestDto requestDto) {
-        return ResponseEntity.ok(shippingService.update(requestDto));
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ShippingResponseDto> update(@PathVariable Long id,@RequestParam String shippingAddress) {
+        return ResponseEntity.ok(shippingService.update(id,shippingAddress));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        shippingService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<ShippingResponseDto>> getAll() {
         return ResponseEntity.ok(shippingService.getAll());
     }

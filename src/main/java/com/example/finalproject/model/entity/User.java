@@ -49,8 +49,8 @@ public class User implements UserDetails {
     private List<Payment> payments;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id",referencedColumnName = "id")
-    private Set<Cart> carts;
+    @JoinColumn(name = "card_id",referencedColumnName = "id")
+    private Set<Card> cards;
 
     public User(String username) {
         this.username = username;

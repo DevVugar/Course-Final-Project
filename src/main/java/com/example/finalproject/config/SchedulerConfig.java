@@ -21,7 +21,7 @@ public class SchedulerConfig {
     private final ProductRepository productRepository;
 
 
-    @Scheduled(cron = "30 * * * * ?") //seconds minutes hours days month
+    @Scheduled(cron = "0 0 08 * * ?") //seconds minutes hours days month
     public void chronTask() {
         log.info("Daily product check started.");
 

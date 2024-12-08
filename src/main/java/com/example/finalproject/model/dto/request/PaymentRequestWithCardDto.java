@@ -8,5 +8,5 @@ public class PaymentRequestWithCardDto {
     private String paymentMethod;
   //  private String shippingAddress;
     private Double shippingAmount;
-    private CartRequestDto cart;
+    private CardRequestDto cart;
 }

@@ -13,9 +13,8 @@ public interface ShippingService {
 
     ShippingResponseDto getById(Long id);
 
-    ShippingResponseDto update(ShippingRequestDto requestDto);
+    ShippingResponseDto update(Long id,String shippingAddress);
 
-    void delete(Long id);
 
     List<ShippingResponseDto> getAll();
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Cart {
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

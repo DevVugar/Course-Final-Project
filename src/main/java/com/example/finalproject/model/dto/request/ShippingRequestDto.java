@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 
 @Data
 public class ShippingRequestDto {
-    private Long id;
     private String shippingAddress;
     private String shippingMethod;
     private String trackingNumber;

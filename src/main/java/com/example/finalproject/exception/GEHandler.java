@@ -28,11 +28,15 @@ public class GEHandler {
     }
 
     @ExceptionHandler({PaymentException.class})
-    public ExceptionDTO handlePaymentProcess(AlreadyExistsException ex) {
+    public ExceptionDTO handlePaymentProcess(PaymentException ex) {
         log.error("Payment processing error -> {}", ex.getMessage());
-        return ExceptionDTO.builder().message(ex.getMessage()).code(HttpStatus.NOT_FOUND.value()).build();
+        return ExceptionDTO.builder().message(ex.getMessage()).code(HttpStatus.BAD_REQUEST.value()).build();
     }
 
+    @ExceptionHandler({ShippingException.class})
+    public ExceptionDTO handleShippingProcess(ShippingException ex) {
+        log.error("Shipping processing error -> {}", ex.getMessage());
+        return ExceptionDTO.builder().message(ex.getMessage()).code(HttpStatus.BAD_REQUEST.value()).build();}
 
 
 }

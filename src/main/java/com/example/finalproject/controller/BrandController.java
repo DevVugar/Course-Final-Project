@@ -31,7 +31,7 @@ public class BrandController {
 
 
     @Operation(summary = "Adding for Brand")
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<BrandResponseDto> add(@RequestBody BrandRequestDto brandDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(brandService.add(brandDto));
 
@@ -39,13 +39,13 @@ public class BrandController {
     }
 
     @Operation(summary = "Get only one Brand with id")
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<BrandResponseDto> getById(@PathVariable Long id) {
         return new ResponseEntity<>(brandService.getById(id), HttpStatus.OK);
     }
 
     @Operation(summary = "Update Brand")
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<BrandResponseDto> update(@RequestBody BrandRequestDto brandDto) {
         return new ResponseEntity<>(brandService.add(brandDto), HttpStatus.OK);
 
@@ -54,14 +54,14 @@ public class BrandController {
 
 
     @Operation(summary = "Delete Brand")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         brandService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "get all Brands")
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<BrandResponseDto>> getAll() {
         return ResponseEntity.ok(brandService.getAll());
     }

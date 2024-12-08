@@ -40,15 +40,21 @@ public class WishListServiceImpl implements WishListService {
         User user = userRepository.findById(requestDto.getUserId()).orElseThrow(() -> new NotFoundException("User not found"));
         // user.getWishList().getProducts().add(product);
 
+        if ( user.getWishList()==null) {
+         user.setWishList(new WishList());
+        }
+
+
         WishList wishList = user.getWishList();
 
-        if (wishList.getProducts().size() == 0) {
+        if (wishList.getProducts()==null || wishList.getProducts().size() == 0) {
             wishList.setProducts(new ArrayList<Product>());
         }
 
         List<Product> products = wishList.getProducts();
         products.add(product);
 
+        wishList.setUser(user);
         wishListRepository.save(wishList);
     }
 
@@ -66,7 +72,7 @@ public class WishListServiceImpl implements WishListService {
     public List<ProductResponseDto> getAll(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
 
-        if(user.getWishList()==null || user.getWishList().getProducts().size()==0 ){
+        if (user.getWishList() == null || user.getWishList().getProducts().size() == 0) {
             throw new NotFoundException("You dont have product in wishList");
         }
 

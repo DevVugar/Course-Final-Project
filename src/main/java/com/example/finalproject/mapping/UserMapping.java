@@ -12,7 +12,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring", uses = {CartMapping.class,ReviewMapping.class,
+@Mapper(componentModel = "spring", uses = {CardMapping.class,ReviewMapping.class,
                                            BasketMapping.class, WishListMapping.class}
         ,nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 

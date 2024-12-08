@@ -20,17 +20,15 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf->csrf.disable())
+        http.csrf(csrf -> csrf.disable())
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .anyRequest().permitAll()
-//                                .requestMatchers(permitAllUrls).permitAll()
-//                                .requestMatchers(adminUrls).hasAnyAuthority("ROLE_ADMIN")
-//                                .requestMatchers(clientUrls).hasAnyAuthority("ROLE_USER")
-//                                .requestMatchers(anyAuthUrls).authenticated()
-//                                .anyRequest().authenticated()
+                                .requestMatchers(permitAllUrls).permitAll()
+                                .requestMatchers(adminUrls).hasRole("ADMIN")
+                                .requestMatchers(clientUrls).hasRole("USER")
+                                .anyRequest().authenticated()
                 ).exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint((request, response, authException) ->
                                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)
@@ -53,22 +51,53 @@ public class SecurityConfig {
             "/configuration/ui",
             "/swagger-ui/**",
             "/swagger-ui.html",
-            "/auth/**"
+            "/auth/**",
+            "/user/{id}/payments",
+            "/brand/{id}/getProducts",
+            "/product/{id}",
+            "/product/name",
+            "/product/getAll",
+            "/product/{id}/reviews",
+            "/shipping/get/{id}",
+            "/card/getById/{id}",
+            "/category/getAll",
+            "/category/get/{id}",
+            "/brand/get/{id}",
+            "/brand/getAll",
     };
 
-
     static String[] adminUrls = {
-            "/controller/admin"
-//            ,"/user",
-//            "/user/{id}"
+            "/controller/admin",
+            "/user/getAll",
+            "/user/{id}",
+
+            "/shipping/getAll",
+            "/product/**",
+            "/category/**",
+            "/brand/**",
+            "/payment/{id}",
+
+            "/review/**"
     };
 
     static String[] clientUrls = {
-            "/controller/user"
-            ,"/user/**"
-            ,"/user"
-            ,"/basket/**"
+            "/controller/user",
+            "/user/{id}/wishlist",
+            "/user/{id}/cards",
+            "/user/resetPassword",
+            "/user/{id}/basket",
 
+            "/shipping/add",
+            "/shipping/update/{id}",
+
+
+
+            "/wishlist/**",
+            "/payment/**",
+            "/card/add/{id}",
+            "/card/delete ./{id}",
+            "/basket/**",
+            "/review/**"
     };
 
     static String[] anyAuthUrls = {

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -16,22 +17,23 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Entity
 public class Shipping {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String shippingAddress;
     private String shippingMethod;
-    private String trackingNumber;
+    // private String trackingNumber;
 
     @Enumerated(EnumType.STRING)
     private ShippingStatus status;
 
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private LocalDate updatedAt;
 
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -12,8 +12,8 @@ public class ShippingResponseDto {
     private Long id;
     private String shippingAddress;
     private String shippingMethod;
-    private BigDecimal shippingCost;
-    private String trackingNumber;
+    private String customerName;
+    //private String trackingNumber;
 
     @Enumerated(EnumType.STRING)
     private ShippingStatus status;

@@ -32,7 +32,6 @@ public class Payment {
     private String currency;
     private String paymentMethod;
 
-
     @Lob
     @Column(name = "products_response_json", columnDefinition = "TEXT")
     private String productsResponseJson;
@@ -69,6 +68,9 @@ public class Payment {
         }
     }
 
+    @OneToOne
+    @JoinColumn(name = "shipping_id", referencedColumnName = "id")
+    private Shipping shipping;
 
 
     @Enumerated(EnumType.STRING)
@@ -84,7 +86,7 @@ public class Payment {
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "cart_id",referencedColumnName = "id")
-    private Cart cart;
+    @JoinColumn(name = "card_id",referencedColumnName = "id")
+    private Card cart;
 
 }

@@ -9,10 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/auth")
 @RestController
@@ -34,8 +31,24 @@ public class AuthController {
     }
 
     @PostMapping("/forgetPassword")
-    public void forgetPassword(HttpServletRequest request){
-        request.getParameter("user");
-
+    public ResponseEntity<Void> forgetPassword(String email){
+        authService.forgetPassword(email);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(
+            @RequestParam String email,
+            @RequestParam String otp,
+            @RequestParam String newPassword) {
+        try {
+            authService.resetPassword(email, newPassword, otp);
+            return ResponseEntity.ok("Password reset successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }

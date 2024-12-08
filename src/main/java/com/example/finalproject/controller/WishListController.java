@@ -1,11 +1,7 @@
 package com.example.finalproject.controller;
 
-import com.example.finalproject.model.dto.request.ShippingRequestDto;
 import com.example.finalproject.model.dto.request.WishListRequestDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
-import com.example.finalproject.model.dto.response.ShippingResponseDto;
-import com.example.finalproject.model.dto.response.WishListResponseDto;
-import com.example.finalproject.model.entity.WishList;
 import com.example.finalproject.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +17,7 @@ public class WishListController {
     private final WishListService wishListService;
 
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Void> add(@RequestBody WishListRequestDto requestDto) {
         wishListService.add(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -29,13 +25,13 @@ public class WishListController {
 
 
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<Void> delete(@RequestBody WishListRequestDto requestDto) {
         wishListService.delete(requestDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/getAll/{userId}")
     public ResponseEntity<List<ProductResponseDto>> getAll(@PathVariable Long userId) {
         return ResponseEntity.ok(wishListService.getAll(userId));
     }

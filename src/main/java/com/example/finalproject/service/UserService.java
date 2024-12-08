@@ -2,9 +2,9 @@ package com.example.finalproject.service;
 
 import com.example.finalproject.model.dto.UserDto;
 import com.example.finalproject.model.dto.request.BrandRequestDto;
+import com.example.finalproject.model.dto.request.ResetPasswordDto;
 import com.example.finalproject.model.dto.request.UserRequestDto;
 import com.example.finalproject.model.dto.response.*;
-import com.example.finalproject.model.entity.Cart;
 import com.example.finalproject.model.entity.WishList;
 import org.springframework.http.ResponseEntity;
 
@@ -26,9 +26,10 @@ public interface UserService {
 
     List<ProductResponseDto> getProductByBasket(Long id);
 
-    Set<CartResponseDto> getCart(Long id);
+    Set<CardResponseDto> getCart(Long id);
 
 
     List<ProductResponseDto> getWisListProduct(Long id);
 
+    String changePassword(ResetPasswordDto resetPasswordDto);
 }

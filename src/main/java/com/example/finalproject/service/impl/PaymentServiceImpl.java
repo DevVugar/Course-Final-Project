@@ -3,10 +3,9 @@ package com.example.finalproject.service.impl;
 import com.example.finalproject.enums.PaymentStatus;
 import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.exception.PaymentException;
-import com.example.finalproject.mapping.CartMapping;
+import com.example.finalproject.mapping.CardMapping;
 import com.example.finalproject.mapping.PaymentMapping;
 import com.example.finalproject.mapping.ProductMapping;
-import com.example.finalproject.model.dto.request.CartRequestDto;
 import com.example.finalproject.model.dto.request.PaymentRequestDto;
 import com.example.finalproject.model.dto.request.PaymentRequestWithCardDto;
 import com.example.finalproject.model.dto.response.PaymentResponseDto;
@@ -29,8 +28,8 @@ import java.util.stream.Collectors;
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final PaymentMapping paymentMapping;
-    private final CartRepository cartRepository;
-    private final CartMapping cartMapping;
+    private final CardRepository cartRepository;
+    private final CardMapping cartMapping;
     private final ProductRepository productRepository;
     private final BasketRepository basketRepository;
     private final UserRepository userRepository;
@@ -96,11 +95,12 @@ public class PaymentServiceImpl implements PaymentService {
             user.getPayments().add(payment);
 
             payment = paymentRepository.save(payment);
-
+            log.info("Payment completed successfully for user ID: {}", user.getId());
 
         } catch (Exception ex) {
             payment.setPaymentStatus(PaymentStatus.failed);
             paymentRepository.save(payment);
+            log.error("Payment failed for user ID: {} with error: {}", user.getId(), ex.getMessage());
             throw new PaymentException("Payment failed: " + ex.getMessage());
         }
 
@@ -114,11 +114,13 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional
     public PaymentResponseDto pay(PaymentRequestDto requestDto) {
+        log.info("Payment process started for user ID: {}", requestDto.getUserId());
+
 
         User user = userRepository.findById(requestDto.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        Cart cart = cartRepository.findById(requestDto.getCardId())
+        Card cart = cartRepository.findById(requestDto.getCardId())
                 .orElseThrow(() -> new NotFoundException("Cart not found"));
 
 
@@ -165,9 +167,12 @@ public class PaymentServiceImpl implements PaymentService {
             payment.setPaymentStatus(PaymentStatus.completed);
             payment = paymentRepository.save(payment);
 
+            log.info("Payment completed successfully for user ID: {}", user.getId());
+
         } catch (PaymentException ex) {
             payment.setPaymentStatus(PaymentStatus.failed);
             paymentRepository.save(payment);
+            log.error("Payment failed for user ID: {} with error: {}", user.getId(), ex.getMessage());
             throw new PaymentException("Payment failed: " + ex.getMessage());
         }
 
@@ -179,6 +184,9 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     private boolean processPayment(Payment payment) {
+        log.info("Processing payment for basket ID: {}", payment.getBasket().getId());
+
+
         List<Product> products = payment.getBasket().getProducts();
 
         for (int i = 0; i < products.size(); i++) {
@@ -187,6 +195,7 @@ public class PaymentServiceImpl implements PaymentService {
                 quantity -= 1;
                 products.get(i).setStockQuantity(quantity);
             } else {
+                log.error("Insufficient stock for product");
                 return false;
             }
 
@@ -207,6 +216,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentResponseDto getById(Long id) {
+        log.info("Fetching payment with ID: {}", id);
         return paymentMapping.toResponse(paymentRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("Payment not found")));
     }

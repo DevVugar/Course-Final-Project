@@ -4,7 +4,7 @@ import com.example.finalproject.model.dto.request.UserRequestDto;
 import lombok.Data;
 
 @Data
-public class CartResponseDto {
+public class CardResponseDto {
     private Long id;
     private String bankAccount;
 

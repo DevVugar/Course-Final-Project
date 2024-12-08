@@ -2,10 +2,7 @@ package com.example.finalproject.model.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -17,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Basket {
 
     @Id
@@ -38,7 +36,5 @@ public class Basket {
 //    private User user;
 
 
-    //    @ManyToOne
-//    @JoinColumn(name = "order_id", referencedColumnName = "id")
-//    private Order order;
+
 }

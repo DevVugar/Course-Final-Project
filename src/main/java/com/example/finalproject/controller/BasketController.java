@@ -20,13 +20,13 @@ public class BasketController {
     private final BasketService basketService;
 
 
-    @PostMapping("/{id}")
+    @PostMapping("/add/{id}")
     public ResponseEntity<ProductResponseDto> add(@PathVariable Long id, @RequestParam Long productId) {
         return new ResponseEntity<>(basketService.add(id,productId), HttpStatus.CREATED);
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id, @RequestParam Long productId) {
         basketService.delete(id,productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
