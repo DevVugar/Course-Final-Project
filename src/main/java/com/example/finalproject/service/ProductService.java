@@ -1,5 +1,6 @@
 package com.example.finalproject.service;
 
+import com.example.finalproject.model.dto.ProductDto;
 import com.example.finalproject.model.dto.request.ProductRequestDto;
 import com.example.finalproject.model.dto.response.ProductResponseAdminDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface ProductService {
     ProductResponseDto add(ProductRequestDto requestDto);
 
-    ProductResponseDto getById(Long id);
+    ProductDto getById(Long id);
 
     ProductResponseDto update(Long id,ProductRequestDto productRequestDto);
 

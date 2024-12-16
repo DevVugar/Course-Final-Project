@@ -4,13 +4,14 @@ package com.example.finalproject.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Slf4j
-public class GEHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler({NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -20,6 +21,13 @@ public class GEHandler {
     }
 
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ExceptionDTO handle(MethodArgumentNotValidException ex) {
+        log.error("Action.error.log -> Already Taken: {}", ex.getMessage());
+        return ExceptionDTO.builder()
+                .message("Validation failed: " + ex.getBody().getDetail())
+                .code(HttpStatus.BAD_REQUEST.value()).build();
+    }
 
     @ExceptionHandler({AlreadyExistsException.class})
     public ExceptionDTO handleStudentAlreadyExistsException(AlreadyExistsException ex) {

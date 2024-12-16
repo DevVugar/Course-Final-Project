@@ -19,6 +19,7 @@ import java.util.List;
 public interface ProductMapping {
 
     ProductResponseDto toResponse(Product product);
+    ProductDto toResponseDto(Product product);
     ProductResponseAdminDto toResponsee(Product product);
 
     List<ProductResponseDto> toResponse(List<Product> products);

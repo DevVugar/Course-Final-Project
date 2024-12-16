@@ -1,5 +1,6 @@
 package com.example.finalproject.model.dto.response;
 
+import com.example.finalproject.enums.PaymentMethod;
 import com.example.finalproject.enums.PaymentStatus;
 import com.example.finalproject.model.entity.Basket;
 import com.example.finalproject.model.entity.Product;

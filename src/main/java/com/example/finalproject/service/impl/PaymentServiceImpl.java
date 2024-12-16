@@ -1,5 +1,6 @@
 package com.example.finalproject.service.impl;
 
+import com.example.finalproject.enums.PaymentMethod;
 import com.example.finalproject.enums.PaymentStatus;
 import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.exception.PaymentException;
@@ -132,7 +133,6 @@ public class PaymentServiceImpl implements PaymentService {
         if (basket == null || basket.getProducts().isEmpty()) {
             throw new NotFoundException("User's basket is empty. Cannot create an order.");
         }
-
         Payment payment = paymentMapping.toEntity(requestDto);
         payment.setBasket(basket);
         payment.setProducts(productMapping.toResponse(basket.getProducts()));

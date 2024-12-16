@@ -3,6 +3,7 @@ package com.example.finalproject.service.impl;
 import com.example.finalproject.exception.NotFoundException;
 import com.example.finalproject.mapping.ProductMapping;
 import com.example.finalproject.mapping.ReviewMapping;
+import com.example.finalproject.model.dto.ProductDto;
 import com.example.finalproject.model.dto.request.ProductRequestDto;
 import com.example.finalproject.model.dto.response.ProductResponseAdminDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
@@ -47,9 +48,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto getById(Long id) {
+    public ProductDto getById(Long id) {
         log.info("Fetching product by ID: {}", id);
-        ProductResponseDto response = productMapping.toResponse(productRepository.findById(id)
+        ProductDto response = productMapping.toResponseDto(productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found")));
         log.info("Product fetched successfully with ID: {}", id);
         return response;

@@ -1,5 +1,6 @@
 package com.example.finalproject.model.entity;
 
+import com.example.finalproject.enums.PaymentMethod;
 import com.example.finalproject.enums.PaymentStatus;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
 import com.fasterxml.jackson.core.type.TypeReference;

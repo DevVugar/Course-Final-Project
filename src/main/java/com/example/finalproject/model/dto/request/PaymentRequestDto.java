@@ -1,5 +1,6 @@
 package com.example.finalproject.model.dto.request;
 
+import com.example.finalproject.enums.PaymentMethod;
 import com.example.finalproject.enums.PaymentStatus;
 import lombok.Data;
 
@@ -12,7 +13,6 @@ public class PaymentRequestDto {
 
     private Long userId;
     private String paymentMethod;
-    //private String shippingAddress;
     private Double shippingAmount;
     private Long cardId;
 

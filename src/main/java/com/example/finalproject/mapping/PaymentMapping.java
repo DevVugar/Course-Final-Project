@@ -7,12 +7,14 @@ import com.example.finalproject.model.dto.response.PaymentResponseDto;
 import com.example.finalproject.model.entity.Payment;
 import com.example.finalproject.model.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses ={CardMapping.class})
 public interface PaymentMapping {
 
     Payment toEntity(PaymentRequestDto requestDto);
+
 
     Payment toEntity(PaymentRequestWithCardDto paymentRequestWithCardDto);
     PaymentResponseDto toResponse(Payment payment);

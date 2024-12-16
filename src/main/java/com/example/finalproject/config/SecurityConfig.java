@@ -58,12 +58,15 @@ public class SecurityConfig {
             "/product/name",
             "/product/getAll",
             "/product/{id}/reviews",
+            "/product/get/{id}",
             "/shipping/get/{id}",
             "/card/getById/{id}",
             "/category/getAll",
             "/category/get/{id}",
             "/brand/get/{id}",
+            "/user/resetPassword",
             "/brand/getAll",
+            "/review/**"
     };
 
     static String[] adminUrls = {
@@ -77,14 +80,13 @@ public class SecurityConfig {
             "/brand/**",
             "/payment/{id}",
 
-            "/review/**"
+
     };
 
     static String[] clientUrls = {
             "/controller/user",
             "/user/{id}/wishlist",
             "/user/{id}/cards",
-            "/user/resetPassword",
             "/user/{id}/basket",
 
             "/shipping/add",
@@ -97,7 +99,7 @@ public class SecurityConfig {
             "/card/add/{id}",
             "/card/delete ./{id}",
             "/basket/**",
-            "/review/**"
+
     };
 
     static String[] anyAuthUrls = {

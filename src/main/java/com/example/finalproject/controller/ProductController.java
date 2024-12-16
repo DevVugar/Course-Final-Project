@@ -1,5 +1,6 @@
 package com.example.finalproject.controller;
 
+import com.example.finalproject.model.dto.ProductDto;
 import com.example.finalproject.model.dto.request.ProductRequestDto;
 import com.example.finalproject.model.dto.response.ProductResponseAdminDto;
 import com.example.finalproject.model.dto.response.ProductResponseDto;
@@ -36,7 +37,7 @@ public class ProductController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<ProductResponseDto> getById(@PathVariable Long id) {
+    public ResponseEntity<ProductDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getById(id));
     }
 

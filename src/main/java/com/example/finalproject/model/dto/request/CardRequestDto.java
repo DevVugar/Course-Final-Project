@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class CardRequestDto {
+public class  CardRequestDto {
     @NotBlank(message = "Bank account cannot be empty")
     @Size(min = 10, max = 20, message = "Bank account must be between 10 and 20 characters")
     private String bankAccount;

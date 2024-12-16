@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 public class ShippingRequestDto {
     private String shippingAddress;
     private String shippingMethod;
-    private String trackingNumber;
     private Long paymentId;
 
 }
